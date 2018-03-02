@@ -1,17 +1,17 @@
 {
-    "name": "psgc/utils",
+    "name": "psgc-laravel-packages/utils",
     "description": "Basic util libraries.",
     "keywords": ["laravel", "utils"],
     "license": "MIT",
     "authors": [
         {
-            "name": "psgc",
+            "name": "psgc51",
             "email": "peter@peltronic.com"
         }
     ],
     "autoload": {
         "psr-4": {
-            "Psgc\\Utils\\": "src/"
+            "Psgc51\\Utils\\": "src/"
         }
     },
     "require": {
