@@ -1,19 +1,9 @@
 <?php
 namespace PsgcLaravelPackages\Utils;
 
+// %TODO: clean this up
 class DateHelpers
 {
-    public static function renderPeriod($periodYear,$periodMonth)
-    {
-        $html = '';
-        if ( empty($periodYear) && empty($periodMonth) ) {
-            $html = 'N/A';
-        } else {
-            $periodMonth = sprintf('%02d', $periodMonth);
-            $html = $periodYear.'/'.$periodMonth;
-        }
-        return $html;
-    }
 
     // http://stackoverflow.com/questions/3319386/php-get-last-week-number-in-year
     // http://stackoverflow.com/questions/3319386/php-get-last-week-number-in-year
@@ -134,6 +124,19 @@ class DateHelpers
         return $options;
     }
 
+    public static function getYearOptions($start = 2010, $emptyElement = true)
+    {
+        $thisYear = date("Y");
+        $options = [];
+        if($emptyElement) {
+            $options[] = '';
+        }
+        for ($o = $thisYear ; $o > $start; --$o) {
+            $options[$o] = $o;
+        }
+        return $options;
+    }
+
     public static function getQuarterMonths($quarter){
         switch($quarter){
             case 1;
@@ -172,18 +175,6 @@ class DateHelpers
         return $isInt ? intval($quarter) : $quarter;
     }
 
-    public static function getYearOptions($start = 2010, $emptyElement = true)
-    {
-        $thisYear = date("Y");
-        $options = [];
-        if($emptyElement) {
-            $options[] = '';
-        }
-        for ($o = $thisYear ; $o > $start; --$o) {
-            $options[$o] = $o;
-        }
-        return $options;
-    }
 
     public static function renderMysqlDate($dateIn,$format=null)
     {
@@ -233,13 +224,6 @@ class DateHelpers
         return $dateOut;
     }
     
-    public static function toWeekPeriodSlug($dateIn){
-        if ( empty($dateIn) ) {
-            return null;
-        }
-        $dt = new \DateTime($dateIn);
-        return $dt->format('Y') . '-' . (integer) $dt->format('W'); //integer cast removes leading zeros
-    }
     
     // input dates must be in format yyyy-mm-dd
     // date1 > date2 => 1

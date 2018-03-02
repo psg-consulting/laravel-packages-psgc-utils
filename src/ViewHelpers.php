@@ -68,13 +68,6 @@ class ViewHelpers
         return $strOut;
     }
 
-    // %TODO DEPRECATED: migrate to CurrencyHelpers  
-    public static function makeNiceCurrency($str)
-    {
-        $str = '$'.number_format($str, 2, '.',',');
-        return $str;
-    }
-
     public static function makeNicePercentage($str,$option=null)
     {
         switch ($option) {
