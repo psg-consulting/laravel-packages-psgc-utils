@@ -5,13 +5,13 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "psgc51",
+            "name": "psgc-laravel-packages",
             "email": "peter@peltronic.com"
         }
     ],
     "autoload": {
         "psr-4": {
-            "Psgc51\\Utils\\": "src/"
+            "PsgcLaravelPackages\\Utils\\": "src/"
         }
     },
     "require": {
