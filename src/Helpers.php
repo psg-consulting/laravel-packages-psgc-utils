@@ -1,5 +1,5 @@
 <?php
-namespace Psgc\Utils;
+namespace PsgLaravelPackages\Utils;
 
 class Helpers
 {
