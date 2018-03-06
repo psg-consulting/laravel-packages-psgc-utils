@@ -1,6 +1,8 @@
 <?php
 namespace PsgcLaravelPackages\Utils;
 
+use DB;
+
 trait ModelTraits
 {
 
@@ -98,9 +100,9 @@ trait ModelTraits
     public static function slugifyByTable(String $table, Array $sluggable, String $slugField='slug', Bool $makeUnique=true)
     {
 
-        if ( array_key_exists(['string'], $sluggable) ) {
-            $stringIn = $sluggable['string'];
-        } else if ( array_key_exists(['terms'], $sluggable) ) {
+        if ( array_key_exists('string', $sluggable) ) {
+            $strIn = $sluggable['string'];
+        } else if ( array_key_exists('terms', $sluggable) ) {
             // ... more complex implementation, ie an arry of fields to build slug from
             // %TODO TESTME
             if ( is_array($sluggable['terms']) ) {
