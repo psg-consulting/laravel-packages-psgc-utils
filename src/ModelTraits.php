@@ -91,7 +91,7 @@ trait ModelTraits
     public function slugify(Array $sluggable, String $slugField='slug', Bool $makeUnique=true)
     {
         $tablename = self::getTablename();
-        return  self::slugifyByTable($tablename, $slugField, $makeUnique);
+        return  self::slugifyByTable($tablename, $sluggable, $slugField, $makeUnique);
     }
 
     // %TODO: move to a trait (??)
