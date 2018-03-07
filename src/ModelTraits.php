@@ -115,16 +115,19 @@ trait ModelTraits
 
         if ($makeUnique) {
     
-            $iter = 1;
             $ogSlug = $slug;
             if (0) {
                 $numMatches = DB::table($table)->where($slugField, '=', $slug)->count();
                 $slug = $ogSlug.'-'.$numMatches;
             } else {
+                $iter = 0;
                 do {
                     $numMatches = DB::table($table)->where($slugField, '=', $slug)->count();
-                    if (($numMatches == 0) || ($iter > 10)) {
-                        break; // already unique, or we've exceeded max tries
+                    if ( 0 == $numMatches )  {
+                        break; // already unique
+                    }
+                    if ( $iter++ > 10 ) {
+                        throw new \Exception('Exceeded maximum number of attempts to create unique slug for field '.$slugField);
                     }
                     $slug = $ogSlug.'-'.rand(1, 999);
                 } while ($numMatches > 0);
