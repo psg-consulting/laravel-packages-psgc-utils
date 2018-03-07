@@ -90,26 +90,24 @@ trait ModelTraits
         }
     }
 
-    public function slugify(Array $sluggable, String $slugField='slug', Bool $makeUnique=true)
+    // $sluggableFields is an Array of table field names to use to create the slug
+    public function slugify(Array $sluggableFields, String $slugField='slug', Bool $makeUnique=true)
     {
         $tablename = self::getTablename();
+
+        // Get actual contents of the sluggable fields...
+        $sluggable = [];
+        foreach ($sluggableFields as $f) {
+            $sluggable[] = $this->{$f};
+        }
         return  self::slugifyByTable($tablename, $sluggable, $slugField, $makeUnique);
     }
 
-    // %TODO: move to a trait (??)
+    // $sluggable is an Array of strings, ints, values, etc  used to create the slug
     public static function slugifyByTable(String $table, Array $sluggable, String $slugField='slug', Bool $makeUnique=true)
     {
-
-        if ( array_key_exists('string', $sluggable) ) {
-            $strIn = $sluggable['string'];
-        } else if ( array_key_exists('terms', $sluggable) ) {
-            // ... more complex implementation, ie an arry of fields to build slug from
-            // %TODO TESTME
-            if ( is_array($sluggable['terms']) ) {
-                $strIn = implode('-',$sluggable['terms']);
-            }
-        }
-        $slug = preg_replace('~[^\\pL\d]+~u', '-', $strIn); // replace non letter or digits by -
+        $slug = implode('-',$sluggable);
+        $slug = preg_replace('~[^\\pL\d]+~u', '-', $slug); // replace non letter or digits by -
         $slug = trim($slug, '-'); // trim
         //$slug = iconv('utf-8', 'us-ascii//TRANSLIT', $slug); // transliterate
         $slug = strtolower($slug); // lowercase
