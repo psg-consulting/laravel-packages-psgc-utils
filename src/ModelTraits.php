@@ -138,5 +138,30 @@ trait ModelTraits
 
     } // slugifyByTable()
 
+    
+    // Is a form field required?
+    //   ~ assumes arrray static::$vrules
+    public static function isFieldRequired(string $fieldKey) : bool
+    {
+        $isRequired = false; // default
+        if ( array_key_exists($fieldKey, static::$vrules) ) {
+            $isRequired = ( false !== strpos(static::$vrules[$fieldKey],'required') );
+        }
+        //dd('here',static::$vrules);
+        return $isRequired;
+    }
+
+    // Render a form field label
+    //    NOTE: $display is optional...if null Form::label() will fill in a sensible default
+    public static function renderFormLabel(string $fieldKey, string $display=null, array $attrs=[]) : string
+    {
+        $html = '';
+        $html .= \Form::label($fieldKey,$display,$attrs); // %TODO: default or render function for display text
+        if ( self::isFieldRequired($fieldKey) ) {
+            $html .= '<span class="tag-required">*</span>';
+        }
+        return $html;
+    } // renderFormLabel()
+
 
 }
