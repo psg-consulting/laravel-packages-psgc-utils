@@ -1,5 +1,6 @@
 <?php
-namespace PsgcLaravelPackages\SmartEnum;
+namespace PsgcLaravelPackages\Utils;
+
 /*
 Example Usage:
 
