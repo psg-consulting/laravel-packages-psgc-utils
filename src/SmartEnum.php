@@ -45,7 +45,8 @@ abstract class SmartEnum {
         return static::$keymap;
     }
 
-    public static function getKeys() {
+    public static function getKeys() : array 
+    {
         return array_keys(static::$keymap);
     }
 
