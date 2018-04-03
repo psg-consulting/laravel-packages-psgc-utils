@@ -3,6 +3,10 @@ namespace PsgcLaravelPackages\Utils;
 
 use DB;
 
+// App or Class using traits may override these
+defined('PSGC_UTILS_MODEL_UNIQUE_SLUG_ATTEMPTS') or define('PSGC_UTILS_MODEL_UNIQUE_SLUG_ATTEMPTS', 20); // set default
+defined('PSGC_UTILS_MODEL_UNIQUE_SLUG_RAND_MAX') or define('PSGC_UTILS_MODEL_UNIQUE_SLUG_RAND_MAX', 9999); // set default
+
 trait ModelTraits
 {
 
@@ -126,10 +130,10 @@ trait ModelTraits
                     if ( 0 == $numMatches )  {
                         break; // already unique
                     }
-                    if ( $iter++ > 10 ) {
+                    if ( $iter++ > PSGC_UTILS_MODEL_UNIQUE_SLUG_ATTEMPTS ) {
                         throw new \Exception('Exceeded maximum number of attempts to create unique slug for field '.$slugField);
                     }
-                    $slug = $ogSlug.'-'.rand(1, 999);
+                    $slug = $ogSlug.'-'.rand(1, PSGC_UTILS_MODEL_UNIQUE_SLUG_RAND_MAX);
                 } while ($numMatches > 0);
             }
         }
