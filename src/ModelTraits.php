@@ -95,7 +95,7 @@ trait ModelTraits
     }
 
     // $sluggableFields is an Array of table field names to use to create the slug
-    public function slugify(Array $sluggableFields, String $slugField='slug', Bool $makeUnique=true)
+    public function slugify(Array $sluggableFields, String $slugField='slug', Bool $makeUnique=true) : string
     {
         $tablename = self::getTablename();
 
@@ -108,7 +108,7 @@ trait ModelTraits
     }
 
     // $sluggable is an Array of strings, ints, values, etc  used to create the slug
-    public static function slugifyByTable(String $table, Array $sluggable, String $slugField='slug', Bool $makeUnique=true)
+    public static function slugifyByTable(String $table, Array $sluggable, String $slugField='slug', Bool $makeUnique=true) : string
     {
         $slug = implode('-',$sluggable);
         $slug = preg_replace('~[^\\pL\d]+~u', '-', $slug); // replace non letter or digits by -
