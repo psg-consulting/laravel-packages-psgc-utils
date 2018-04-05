@@ -78,6 +78,11 @@ trait ModelTraits
         return $key;
     }
 
+    public static function _renderFieldKey($key)
+    {
+        return self::base_renderFieldKey($key);
+    }
+
     // child classes can override, but impl should call parent
     public function renderFieldKey($key)
     {
