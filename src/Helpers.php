@@ -3,6 +3,24 @@ namespace PsgcLaravelPackages\Utils;
 
 class Helpers
 {
+
+    // is the string json-formatted?
+    public function isJson(string $string) : bool
+    {
+        $string = trim($string);
+    
+        if (    empty($string)  
+            || ( "{" != $string[0] )  
+            || ( "}" != substr($string,-1) )
+        ) 
+        { 
+            return false;
+        }
+    
+        json_decode($string);
+        return (json_last_error() == JSON_ERROR_NONE);
+    }
+
     public static function trueempty($var) {
         return !($var==="0"||$var);
     }
