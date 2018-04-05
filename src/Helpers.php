@@ -5,7 +5,7 @@ class Helpers
 {
 
     // is the string json-formatted?
-    public function isJson(string $string) : bool
+    public static function isJson(string $string) : bool
     {
         $string = trim($string);
     
