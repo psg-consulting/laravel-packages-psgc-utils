@@ -56,7 +56,7 @@ trait ModelTraits
     }
 
     // common baseline code 
-    protected static function base_renderFieldKey($key)
+    protected static function base_renderFieldKey(string $key) : string
     {
         $key = trim($key);
         switch ($key) {
@@ -78,20 +78,20 @@ trait ModelTraits
         return $key;
     }
 
-    public static function _renderFieldKey($key)
+    public static function _renderFieldKey(string $key) : string
     {
         return self::base_renderFieldKey($key);
     }
 
     // child classes can override, but impl should call parent
-    public function renderFieldKey($key)
+    public function renderFieldKey(string $key) : string
     {
         return static::_renderFieldKey($key);  // %NOTE: late static binding
     }
 
 
     // child classes can override, but impl should call parent
-    public function renderField($field)
+    public function renderField(string $field) : string
     {
         $key = trim($field);
         switch ($key) {
