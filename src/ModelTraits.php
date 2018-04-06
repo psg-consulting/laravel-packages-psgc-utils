@@ -91,7 +91,7 @@ trait ModelTraits
 
 
     // child classes can override, but impl should call parent
-    public function renderField(string $field) : string
+    public function renderField(string $field) : ?string
     {
         $key = trim($field);
         switch ($key) {
