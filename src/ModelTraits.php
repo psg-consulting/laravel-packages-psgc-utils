@@ -121,6 +121,11 @@ trait ModelTraits
     }
 
     // $sluggable is an Array of strings, ints, values, etc  used to create the slug
+    // Example usage of dynamic DB connection:
+    //    $obj = new Content();
+    //    $obj->setDBConnection($language->slug);
+    //    $obj->fill($attrs);
+    //    $obj->save();
     public static function slugifyByTable(String $table, Array $sluggable, String $slugField='slug', Bool $makeUnique=true, $dbconnection=null) : string
     {
         $slug = implode('-',$sluggable);
