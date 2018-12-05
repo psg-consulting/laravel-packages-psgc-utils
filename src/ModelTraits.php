@@ -116,11 +116,12 @@ trait ModelTraits
         foreach ($sluggableFields as $f) {
             $sluggable[] = $this->{$f};
         }
-        return  self::slugifyByTable($tablename, $sluggable, $slugField, $makeUnique);
+        $dbc = $this->getConnectionName();
+        return  self::slugifyByTable($tablename, $sluggable, $slugField, $makeUnique, $dbc);
     }
 
     // $sluggable is an Array of strings, ints, values, etc  used to create the slug
-    public static function slugifyByTable(String $table, Array $sluggable, String $slugField='slug', Bool $makeUnique=true) : string
+    public static function slugifyByTable(String $table, Array $sluggable, String $slugField='slug', Bool $makeUnique=true, $dbconnection=null) : string
     {
         $slug = implode('-',$sluggable);
         $slug = preg_replace('~[^\\pL\d]+~u', '-', $slug); // replace non letter or digits by -
@@ -133,12 +134,20 @@ trait ModelTraits
     
             $ogSlug = $slug;
             if (0) {
-                $numMatches = DB::table($table)->where($slugField, '=', $slug)->count();
+                if ( empty($dbconnection) ) {
+                    $numMatches = DB::table($table)->where($slugField, '=', $slug)->count();
+                } else {
+                    $numMatches = DB::connection($dbconnection)->table($table)->where($slugField, '=', $slug)->count();
+                }
                 $slug = $ogSlug.'-'.$numMatches;
             } else {
                 $iter = 0;
                 do {
-                    $numMatches = DB::table($table)->where($slugField, '=', $slug)->count();
+                    if ( empty($dbconnection) ) {
+                        $numMatches = DB::table($table)->where($slugField, '=', $slug)->count();
+                    } else {
+                        $numMatches = DB::connection($dbconnection)->table($table)->where($slugField, '=', $slug)->count();
+                    }
                     if ( 0 == $numMatches )  {
                         break; // already unique
                     }
