@@ -25,11 +25,18 @@ class ViewHelpers
 
     // formats an unformatted phone number
     // https://stackoverflow.com/questions/10164460/format-and-display-a-phone-number-on-a-report-page-in-php
-    public static function makeNicePhoneNumber($phoneNumber)
+    public static function makeNicePhoneNumber($phoneNumber) : string
     {
+        if ( empty($phoneNumber) ) {
+            return '';
+        }
         $cleaned = preg_replace('/[^[:digit:]]/', '', $phoneNumber);
         preg_match('/(\d{3})(\d{3})(\d{4})/', $cleaned, $matches);
-        return "({$matches[1]}) {$matches[2]}-{$matches[3]}";
+        if (count($matches) >= 4) {
+            return "({$matches[1]}) {$matches[2]}-{$matches[3]}";
+        } else {
+            return '';
+        }
     }
 
 
