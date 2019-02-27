@@ -73,7 +73,9 @@ trait ModelTraits
                 $key = 'Updated';
                 break;
             default:
-                $key = ucwords($key);
+                // try to capture 'boolean' fields that start with 'is'
+                $key = ucwords(preg_replace('/^is_/', 'Is ', $key));
+                //$key = ucwords($key);
         }
         return $key;
     }
